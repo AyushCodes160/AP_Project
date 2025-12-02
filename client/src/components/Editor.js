@@ -6,7 +6,7 @@ import "codemirror/addon/edit/closebrackets";
 import "codemirror/addon/edit/matchbrackets";
 import "codemirror/lib/codemirror.css";
 import CodeMirror from "codemirror";
-import { ACTIONS } from "../Actions";
+import ACTIONS from "../Actions";
 
 function Editor({ socketRef, roomId, onCodeChange, editorRef: externalEditorRef }) {
   const editorRef = useRef(null);

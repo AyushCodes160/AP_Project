@@ -30,8 +30,17 @@ const languageConfig = {
   r: { versionIndex: "3" },
 };
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  origin: function (origin, callback) {
+    // Allow any origin for debugging purposes
+    callback(null, true);
+  },
   credentials: true
 }));
 
@@ -57,7 +66,9 @@ app.use(passport.session());
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      callback(null, true);
+    },
     methods: ["GET", "POST"],
     credentials: true,
   },
